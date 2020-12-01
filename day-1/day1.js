@@ -6,7 +6,6 @@ const findPairs = ([first, ...arr], target = 2020) => {
     const val = arr[i];
 
     const check = target - val;
-
     if (dict[check]) return [val, check];
     else dict[val] ? dict[val]++ : (dict[val] = 1);
   }
@@ -20,7 +19,10 @@ const findTrio = ([first, ...arr], target = 2020) => {
     for (let j = i + 1; j < arr.length; j++) {
       const valJ = arr[j];
       const check = target - valI - valJ;
-      if (dict[check]) return [valI, valJ, check];
+      if (check === valI || check === valJ) {
+        // Duplicate check, ensure enough of value
+        if (dict[check] === 2) return [valI, valJ, check];
+      } else if (dict[check]) return [valI, valJ, check];
     }
     dict[valI] ? dict[valI]++ : (dict[valI] = 1);
   }
