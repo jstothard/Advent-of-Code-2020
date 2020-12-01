@@ -1,0 +1,29 @@
+{
+  "name": "aoc2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/node": "^7.12.6",
+    "babel-jest": "^26.6.3",
+    "csv-parse": "^4.14.1",
+    "jest": "^26.6.3",
+    "papaparse": "^5.3.0",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7"
+  },
+  "scripts": {
+    "test": "jest .spec.js"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./setupTests.js"
+    ]
+  },
+  "author": "",
+  "license": "ISC"
+}
