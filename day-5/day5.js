@@ -31,44 +31,36 @@ const calculateColumn = (str) => {
 };
 
 const calculateTickets = (data) => {
-  return data.map((ticket) => {
-    const rowId = ticket.substr(0, 7);
-    const row = calculateRow(rowId);
-    const colId = ticket.substr(7, 9);
-    const col = calculateColumn(colId);
-    const id = row * 8 + col;
-
-    return {
-      row,
-      col,
-      id,
-    };
-  });
+  return data.reduce(
+    ({ tickets, sum, minId }, ticket) => {
+      const rowId = ticket.substr(0, 7);
+      const row = calculateRow(rowId);
+      const colId = ticket.substr(7, 9);
+      const col = calculateColumn(colId);
+      const id = row * 8 + col;
+      tickets.push({
+        row,
+        col,
+        id,
+      });
+      return {
+        tickets,
+        sum: (sum += id),
+        minId: Math.min(id, minId),
+      };
+    },
+    { tickets: [], sum: 0, minId: Infinity }
+  );
 };
 
 const findMySeat = (data) => {
-  const tickets = calculateTickets(data);
+  const { tickets, sum, minId } = calculateTickets(data);
 
-  const { minRow, maxRow } = tickets.reduce(
-    (curr, row) => ({
-      minRow: Math.min(row, curr.minRow),
-      maxRow: Math.max(row, curr.maxRow),
-    }),
-    { minRow: Infinity, maxRow: 0 }
-  );
-
-  const noFrontOrBack = tickets
-    .filter(({ row }) => row !== minRow && row !== maxRow)
-    .sort(({ id: id1 }, { id: id2 }) => id1 - id2);
-
-  const minId = noFrontOrBack[0].id - 1;
-
-  const sumToMinId = (minId * (minId + 1)) / 2;
-  const maxId = minId + noFrontOrBack.length + 1;
+  const sumBelowMinId = (minId * (minId - 1)) / 2;
+  const maxId = minId + tickets.length;
   const sumToMaxId = (maxId * (maxId + 1)) / 2;
 
-  const expectedSum = sumToMaxId - sumToMinId;
-  const sum = noFrontOrBack.reduce((sum, { id }) => (sum += id), 0);
+  const expectedSum = sumToMaxId - sumBelowMinId;
   return expectedSum - sum;
 };
 
