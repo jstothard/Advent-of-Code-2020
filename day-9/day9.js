@@ -19,11 +19,9 @@ const findListSum = (list, target) => {
   let arr = [];
   let found = false;
   for (let i = 0; i < list.length && !found; i++) {
+    arr = arraySumBelow(arr, target);
     const arrSum = sum(arr);
-    if (arrSum > target) {
-      arr = arraySumBelow(arr, target);
-      arrSum = sum(arr);
-    }
+
     if (arrSum === target) found = true;
     else arr.push(list[i]);
   }
