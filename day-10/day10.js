@@ -31,7 +31,6 @@ const countArrangements = (data) => {
     },
     { max: 0 }
   );
-
   // This allows for the standard set, i.e. part 1
   let count = [1];
 
