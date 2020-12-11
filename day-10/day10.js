@@ -32,11 +32,10 @@ const countArrangements = (data) => {
     { max: 0 }
   );
 
-  let count = [];
+  let count = [1];
 
-  for (let i = 0; i < dict.max + 4; i++) {
-    if (i === 0) count.push(1);
-    else if (dict[i] || i === dict.max + 3) {
+  for (let i = 1; i < dict.max + 4; i++) {
+    if (dict[i] || i === dict.max + 3) {
       count.push(
         (count?.[i - 1] || 0) + (count?.[i - 2] || 0) + (count?.[i - 3] || 0)
       );
