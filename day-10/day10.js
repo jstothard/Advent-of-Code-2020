@@ -32,11 +32,13 @@ const countArrangements = (data) => {
     { max: 0 }
   );
 
+  // This allows for the standard set, i.e. part 1
   let count = [1];
 
   for (let i = 1; i < dict.max + 4; i++) {
     if (dict[i] || i === dict.max + 3) {
       count.push(
+        // Add all branches to count
         (count?.[i - 1] || 0) + (count?.[i - 2] || 0) + (count?.[i - 3] || 0)
       );
     } else count.push(0);
