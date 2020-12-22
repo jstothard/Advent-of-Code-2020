@@ -33,7 +33,6 @@ const earliestTime = (busString, startTime = 1) => {
   return busses.reduce(
     // For each bus, find the first time that the bus arrives immediately after last
     ([last, multiplier], curr, i) => {
-      // console.log(last, multiplier);
       for (let check = +last; ; check += +multiplier) {
         // Check if following value is multiple of curr bus
         if ((check + i + 1) % curr === 0) {
